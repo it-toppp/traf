@@ -67,7 +67,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      - 'traefik.backend=portainer'
+#      - 'traefik.backend=portainer'
       - 'traefik.port=9000'
       - "traefik.protocol=http"
       - 'traefik.frontend.rule=Host:portainer.${TRAEFIK_DOMAIN}'
