@@ -1,4 +1,4 @@
-version: '3.6'
+version: '2'
 volumes:
   pritunl_data:
     driver: local
@@ -10,8 +10,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: $SUBNET
-
+        - subnet: 192.168.202.0/24
 
 services:
 
@@ -88,6 +87,9 @@ services:
     volumes:
       - "./samba:/etc/samba"
       - "/mnt/storage:/storage"
+    networks:
+      default:
+        ipv4_address: 192.168.202.202
 
   front:
     image: mailu/nginx:$VERSION
