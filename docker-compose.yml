@@ -16,7 +16,7 @@ services:
 
   traefik:
     image: traefik:alpine
-    command: --docker --api
+    command: --docker 
     restart: always
     ports:
       - "80:80"
@@ -26,7 +26,7 @@ services:
       - "./traefik/acme.json:/acme.json"
       - "./traefik/traefik.toml:/traefik.toml"
     labels:
-      - "traefik.docker.network=frontend"
+#      - "traefik.docker.network=frontend"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:${TRAEFIK_DOMAIN}; PathPrefixStrip:/traefik"
       - "traefik.port=8080"
@@ -55,8 +55,6 @@ services:
       - 'pritunl_data:/var/lib/pritunl'
       - 'pritunl_db:/var/lib/mongodb'
     labels:
-      - "InsecureSkipVerify=true"
-     # - "traefik.passHostHeader=true"
       - 'traefik.port=443'
       - "traefik.protocol=https"
       - 'traefik.frontend.rule=Host:vpn.${TRAEFIK_DOMAIN}'
@@ -67,10 +65,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
-#      - 'traefik.backend=portainer'
       - 'traefik.port=9000'
       - "traefik.protocol=http"
       - 'traefik.frontend.rule=Host:portainer.${TRAEFIK_DOMAIN}'
+    networks:
+      default:
+        ipv4_address: 192.168.202.201
 
   samba:
     command: "-s \"storage;/storage;yes;no;yes;admin;admin\""
@@ -103,7 +103,6 @@ services:
       - "traefik.frontend.rule=Host:mail.$TRAEFIK_DOMAIN"
 #      - "traefik.docker.network=mailu_default"
     ports:
-      - "8888:80"
       - "${BIND_ADDRESS4}:110:110"
       - "${BIND_ADDRESS4}:143:143"
       - "${BIND_ADDRESS4}:993:993"
@@ -160,7 +159,7 @@ services:
 
 #  antivirus:
 #    image: mailu/$ANTIVIRUS:$VERSION
-##    restart: always
+#    restart: always
 #    env_file: .env
 #    volumes:
 #      - "$ROOT/filter:/data"
