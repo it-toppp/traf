@@ -2,7 +2,6 @@
 logLevel = "INFO"
 defaultEntryPoints = ["https","http"]
 insecureSkipVerify = true
-
 [entryPoints]
   [entryPoints.http]
   address = ":80"
@@ -29,6 +28,6 @@ entryPoint = "http"
 
 # This should include all of your mail domains, and main= should be your $TRAEFIK_DOMAIN
 [[acme.domains]]
-  main = "proshift.pp.ua"
- # sans = ["vpn.proshift.pp.ua,portainer.proshift.pp,mail.proshift.pp"]
+  main = "serversupport.pp.ua"
+  sans = ["mail.serversupport.pp.ua"]
 
