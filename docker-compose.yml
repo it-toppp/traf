@@ -1,4 +1,4 @@
-version: '2'
+version: '3.6'
 volumes:
   pritunl_data:
     driver: local
@@ -104,13 +104,13 @@ services:
 #      - "traefik.docker.network=mailu_default"
     ports:
       - "8888:80"
-      - "104.248.24.104:110:110"
-      - "104.248.24.104:143:143"
-      - "104.248.24.104:993:993"
-      - "104.248.24.104:995:995"
-      - "104.248.24.104:25:25"
-      - "104.248.24.104:465:465"
-      - "104.248.24.104:587:587"
+      - "${BIND_ADDRESS4}:110:110"
+      - "${BIND_ADDRESS4}:143:143"
+      - "${BIND_ADDRESS4}:993:993"
+      - "${BIND_ADDRESS4}:995:995"
+      - "${BIND_ADDRESS4}:25:25"
+      - "${BIND_ADDRESS4}:465:465"
+      - "${BIND_ADDRESS4}:587:587"
 #      - "$BIND_ADDRESS6:110:110"
 #      - "$BIND_ADDRESS6:143:143"
 #      - "$BIND_ADDRESS6:993:993"
@@ -121,9 +121,6 @@ services:
     volumes:
       - "$ROOT/overrides/nginx:/overrides"
       - "$ROOT/certs:/certs"
-
-
-
 
   redis:
     image: redis:alpine
