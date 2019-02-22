@@ -10,7 +10,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.168.202.0/24
+        - subnet: ${SUBNET}
 
 services:
 
@@ -70,7 +70,7 @@ services:
       - 'traefik.frontend.rule=Host:portainer.${TRAEFIK_DOMAIN}'
     networks:
       default:
-        ipv4_address: 192.168.202.201
+        ipv4_address: ${PORT_VPN_IP}
 
   samba:
     command: "-s \"storage;/storage;yes;no;yes;admin;admin\""
@@ -89,7 +89,7 @@ services:
       - "/mnt/storage:/storage"
     networks:
       default:
-        ipv4_address: 192.168.202.202
+        ipv4_address: ${SMB_VPN_IP}
 
   front:
     image: mailu/nginx:$VERSION
