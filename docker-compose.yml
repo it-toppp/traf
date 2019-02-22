@@ -86,7 +86,7 @@ services:
     restart: always
     volumes:
       - "./samba:/etc/samba"
-      - "/mnt/storage:/storage"
+      - "${SAMBADIR}:/storage"
     networks:
       default:
         ipv4_address: ${SMB_VPN_IP}
