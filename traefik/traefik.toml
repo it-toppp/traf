@@ -27,7 +27,7 @@ onHostRule = true
 entryPoint = "http"
 
 # This should include all of your mail domains, and main= should be your $TRAEFIK_DOMAIN
-[[acme.domains]]
-  main = "serversupport.pp.ua"
-  sans = ["mail.serversupport.pp.ua"]
+#[[acme.domains]]
+ # main = "serversupport.pp.ua"
+  #sans = ["mail.serversupport.pp.ua"]
 
