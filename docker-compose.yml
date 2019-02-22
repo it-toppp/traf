@@ -16,7 +16,7 @@ services:
 
   traefik:
     image: traefik:alpine
-    command: --docker 
+    command: --docker --acme.email="${ACME_EMAIL}"
     restart: always
     ports:
       - "80:80"
