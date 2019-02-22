@@ -48,6 +48,7 @@ services:
   pritunl:
     image: 'jippi/pritunl:latest'
     privileged: true
+    restart: always
     ports:
       - '1194:1194/udp'
       - '1194:1194/tcp'
@@ -61,6 +62,7 @@ services:
 
   portainer:
     image: portainer/portainer
+    restart: always
     command: --no-auth -H unix:///var/run/docker.sock
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -90,6 +92,8 @@ services:
     networks:
       default:
         ipv4_address: ${SMB_VPN_IP}
+    labels:
+      - "traefik.enable=false"
 
   front:
     image: mailu/nginx:$VERSION
@@ -126,6 +130,8 @@ services:
     restart: always
     volumes:
       - "$ROOT/redis:/data"
+    labels:
+      - "traefik.enable=false"
 
   imap:
     image: mailu/dovecot:$VERSION
@@ -136,6 +142,8 @@ services:
       - "$ROOT/overrides:/overrides"
     depends_on:
       - front
+    labels:
+      - "traefik.enable=false"
 
   smtp:
     image: mailu/postfix:$VERSION
@@ -156,6 +164,8 @@ services:
       - "$ROOT/overrides/rspamd:/etc/rspamd/override.d"
     depends_on:
       - front
+    labels:
+      - "traefik.enable=false"
 
 #  antivirus:
 #    image: mailu/$ANTIVIRUS:$VERSION
@@ -170,6 +180,8 @@ services:
     env_file: .env
     volumes:
       - "$ROOT/dav:/data"
+    labels:
+      - "traefik.enable=false"
 
   admin:
     image: mailu/admin:$VERSION
@@ -180,6 +192,8 @@ services:
       - "$ROOT/dkim:/dkim"
     depends_on:
       - redis
+    labels:
+      - "traefik.enable=false"
 
   webmail:
     image: "mailu/$WEBMAIL:$VERSION"
@@ -189,8 +203,12 @@ services:
       - "$ROOT/webmail:/data"
     depends_on:
       - imap
+    labels:
+      - "traefik.enable=false"
 
   fetchmail:
     image: mailu/fetchmail:$VERSION
     restart: always
     env_file: .env
+    labels:
+      - "traefik.enable=false"
