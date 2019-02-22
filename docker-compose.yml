@@ -64,10 +64,10 @@ services:
     command: --no-auth -H unix:///var/run/docker.sock
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - 'traefik.port=9000'
-      - "traefik.protocol=http"
-      - 'traefik.frontend.rule=Host:portainer.${TRAEFIK_DOMAIN}'
+#    labels:
+#      - 'traefik.port=9000'
+#      - "traefik.protocol=http"
+#      - 'traefik.frontend.rule=Host:portainer.${TRAEFIK_DOMAIN}'
     networks:
       default:
         ipv4_address: ${PORT_VPN_IP}
