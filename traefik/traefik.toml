@@ -10,6 +10,10 @@ insecureSkipVerify = true
   [entryPoints.https]
   address = ":443"
   [entryPoints.https.tls]
+  [entryPoints.http3000]
+  address = ":3000"
+  #  [entryPoints.https8443.tls]
+  # lable traefik.frontend.entryPoints=http3000
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
